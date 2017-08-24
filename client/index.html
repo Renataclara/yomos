@@ -14,18 +14,20 @@
     <script>
     function search() {
       // alert('hai')
-      axios.get('http://localhost:3000/spotify/search', {
-        search: 'blues'
+      axios.post('http://localhost:3000/spotify/search', {
+        search: $('#new-search').val()
       })
         .then(function (data) {
-          // $('#timeline').empty();
-          console.log('hasil SPOTIFY HTML search',data);
-          // data.data.statuses.forEach( tweet => {
-          //     $('#timeline').append(`
-          //       <p>${tweet.text} <br>  ${tweet.created_at}</p>
-          //       `
-          //     )
-          // })
+          $('#timeline').empty();
+          // console.log('hasil SPOTIFY HTML search',data);
+          data.data.playlists.items.forEach( playlist => {
+              $('#timeline').append(`
+                <p>${playlist.name} <br>
+                <a href="${playlist.external_urls.spotify}">${playlist.external_urls.spotify}</a>
+                </p>
+                `
+              )
+          })
         })
         .catch(function (error) {
           console.log(error);

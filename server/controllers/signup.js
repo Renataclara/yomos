@@ -6,7 +6,7 @@ exports.signup = (req, res) => {
   users.userModel.create({
       username: req.body.username,
       password: random.hashish(req.body.password, secret),
-      salt: salt
+      salt: secret
     })
     .then(data => {
       res.send(data)

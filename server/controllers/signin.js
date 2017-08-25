@@ -1,6 +1,7 @@
 const users = require('../models/user');
 const jwt = require('jsonwebtoken');
 const random = require('../helpers/hash')
+const dotenv = require('dotenv').config()
 
 exports.signin = (req, res) => {
   users.userModel.findOne({
@@ -9,15 +10,15 @@ exports.signin = (req, res) => {
     .then(data => {
       pass = random.hashish(req.body.password, data.salt)
       if (pass == data.password) {
-        var token = jwt.sign({
+        jwt.sign({
           username: data.username
-        }, process.env.YOMOS_SECRET);
-        res.send(token)
+        }, process.env.YOMOS_SECRET, (err, token) => {
+          if(err) console.log(err)
+          res.send(token)
+        });
       } else {
         res.send('wrong password')
       }
     })
-    .catch(err => {
-      res.send('Username Not Exist')
-    })
+    .catch(err => res.send('nousername'))
 }

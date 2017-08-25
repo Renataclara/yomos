@@ -25,7 +25,7 @@ $.ajax({
    })
    .done(function (response) {
      var result = ProcessResult(response);
-     alert('fungis ini jalan');
+    //  alert('fungis ini jalan');
      search(result)
    })
    .fail(function (error) {
@@ -75,11 +75,17 @@ function search(result) {
     .then(function (data) {
       $('#timeline').empty();
       // console.log('hasil SPOTIFY HTML search',data);
+
       var playlist = data.data.playlists.items
       for (var i = 0; i < 5; i++) {
         $('#timeline').append(`
-              <p>${playlist[i].name} <br> ${playlist[i].uri}</p>
-              <button onclick="changePlaylist('${playlist[i].uri}')"></button>
+          <div class="panel panel-default" align='left'>
+                  <div class="panel-heading">${playlist[i].name}</div>
+                  <div class="panel-body">
+                  <input type="button" class="btn btn-warning" value="Go to Playlist" onclick="changePlaylist('${playlist[i].uri}')">
+                  </div>
+                  <br>
+          </div>
               `
             )
       }

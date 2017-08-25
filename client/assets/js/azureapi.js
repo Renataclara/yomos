@@ -24,7 +24,8 @@ $.ajax({
   processData: false
    })
    .done(function (response) {
-     ProcessResult(response);
+     var result = ProcessResult(response);
+     search(result)
    })
    .fail(function (error) {
      $("#response").text(error.getAllResponseHeaders());
@@ -46,8 +47,10 @@ $.ajax({
    surprise = parseFloat(response[0].scores.surprise.toString().slice(0,7))
 
    emotionValue = [anger,contempt,disgust,fear,happiness,neutral,sadness,surprise]
-
-   return emotion[closest(emotionValue,1)]);
+   console.log(emotionValue.forEach(data=>{
+     console.log(data)
+   }));
+   return emotion[closest(emotionValue,1)];
  }
  function closest(list, x) {
     var min,
@@ -56,8 +59,32 @@ $.ajax({
         min = Math.abs(chosen - x);
         if (Math.abs(list[i] - x) < min) {
             chosen = list[i];
-            var indexed = i
+
         }
     }
-    return indexed;
+
+    return list.indexOf(chosen);
+}
+
+function search(result) {
+  // alert('hai')
+  axios.post('http://localhost:3000/spotify/search', {
+    search: result
+  })
+    .then(function (data) {
+      $('#timeline').empty();
+      // console.log('hasil SPOTIFY HTML search',data);
+      data.data.playlists.items.forEach( playlist => {
+          $('#timeline').append(`
+            <p>${playlist.name} <br>
+            <a href="${playlist.external_urls.spotify}">${playlist.external_urls.spotify}</a>
+            </p>
+            `
+          )
+      })
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+    console.log('hai');
 }

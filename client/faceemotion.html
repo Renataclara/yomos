@@ -7,14 +7,22 @@
  </head>
 
  <body>
-   <p>This example shows how to post an image to the Project Oxford Emotion API using a binary file</p>
-   <input type="file" id="filename" name="filename">
-   <button id="btn">Click here</button>
+   <div class="col">
+     <input type="file" id="filename" name="filename">
+     <button id="btn">Click here</button>
    <p id="response"></p>
-   <div id="timeline"></div>
+   <iframe id="playlist" src="https://open.spotify.com/embed?uri=spotify:user:spotify:playlist:3rgsDhGHZxZ9sB9DQWQfuf"
+      width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
+   </div>
+   <div id="timeline" class="col"></div>
+
 
    <script src="assets/js/azureapi.js"></script>
-
+   <script>
+   function changePlaylist (uri) {
+     $('#playlist').attr("src",`https://open.spotify.com/embed?uri=${uri}`);
+   }
+   </script>
 </body>
 
 </html>

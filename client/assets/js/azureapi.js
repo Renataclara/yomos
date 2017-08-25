@@ -74,14 +74,22 @@ function search(result) {
     .then(function (data) {
       $('#timeline').empty();
       // console.log('hasil SPOTIFY HTML search',data);
-      data.data.playlists.items.forEach( playlist => {
-          $('#timeline').append(`
-            <p>${playlist.name} <br>
-            <a href="${playlist.external_urls.spotify}">${playlist.external_urls.spotify}</a>
-            </p>
-            `
-          )
-      })
+      var playlist = data.data.playlists.items
+      for (var i = 0; i < 5; i++) {
+        $('#timeline').append(`
+              <p>${playlist[i].name} <br> ${playlist[i].uri}</p>
+              <button onclick="changePlaylist('${playlist[i].uri}')"></button>
+              `
+            )
+      }
+      // data.data.playlists.items.forEach( playlist => {
+      //     $('#timeline').append(`
+      //       <p>${playlist.name} <br>
+      //       <a href="${playlist.external_urls.spotify}">${playlist.external_urls.spotify}</a>
+      //       </p>
+      //       `
+      //     )
+      // })
     })
     .catch(function (error) {
       console.log(error);

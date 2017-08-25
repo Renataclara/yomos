@@ -9,7 +9,7 @@ var userSchema = mongoose.Schema({
     salt: String
 })
 
-var userModel = mongoose.model('Books', userSchema);
+var userModel = mongoose.model('user', userSchema);
 
 
 module.exports = {

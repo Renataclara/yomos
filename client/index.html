@@ -85,7 +85,7 @@
   </div>
 
   <script>
-    $('#register-button').click(function () {
+    $('#register-submit').click(function () {
       axios.post('http://localhost:3000/signup', {
           username: $('#register-username').val(),
           password: $('#register-password').val()
@@ -99,7 +99,7 @@
         })
     })
 
-    $('#login-button').click(function () {
+    $('#login-submit').click(function () {
       axios.post('http://localhost:3000/signin', {
           username: $('#login-username').val(),
           password: $('#login-password').val()

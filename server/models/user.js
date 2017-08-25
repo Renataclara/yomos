@@ -5,7 +5,8 @@ mongoose.connect('mongodb://localhost:27017/yomos');
 
 var userSchema = mongoose.Schema({
     usename: String,
-    password: String
+    password: String,
+    salt: String
 })
 
 var userModel = mongoose.model('Books', userSchema);

@@ -1,9 +1,12 @@
 const users = require('../models/users');
+const random = require('../helpers/hash')
 
 exports.signup = (req, res) => {
+  let secret = random.randomStr(8);
   users.userModel.create({
       username: req.body.username,
-      password: req.body.password,
+      password: random.hashish(req.body.password, secret)
+      salt: salt
     })
     .then(data => {
       res.send(data)
